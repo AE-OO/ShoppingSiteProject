@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>조회하면 예시</title>
+    <style>
+        #modal {
+            display: none;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, .3);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #modal>#update {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            position: relative;
+            background-color: #fff;
+        }
+
+        #modal .close {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            font-size: 20px;
+            border: 0;
+            background-color: #fff;
+        }
+
+        #modal .close:hover,
+        #modal .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+</head>
+<th:block th:replace="~{/template :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+
+<tr th:each="list:${bbb}">
+    <th th:value="${bbb.getBTitle()}">제목</th>
+    <th th:text="${bbb.getBWriter()}">작성자</th>
+    <th th:text="${bbb.getBDate()}">작성시간</th>
+    <th th:text="${bbb.getBContent()}">내용</th>
+</tr>
+
+    <input type='button' value='삭제' id='btnDelete'>
+    <input type='button' value='수정' id='btnUpdate'>
+
+<div id='modal'>
+    <div id='update'>
+        <input type="hidden" id="hiddenID" th:value="${bbb.getBId()}"/>
+        <input type="hidden" id="hiddenPW" value=""/>
+        <input type='button' value='X' class="close" id='btnClose'/>
+        <label>암호를 입력하세요</label><br/>
+        <input type='password' id='inputPW' placeholder="비밀번호 입력"/>
+        <input type='button' value='check' id='btnCheck'/>
+    </div>
+</div>
+<script>
+    var btnUpdate = document.getElementById('btnUpdate');
+    var btnCheck = document.getElementById('btnCheck');
+    var btnClose = document.getElementById('btnClose');
+    var btnDelete = document.getElementById('btnDelete');
+
+    // check 버튼 실행
+    var checkBtn = function () {
+        to_ajax();
+        var modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+    // modal 창을 감춤
+    var closeRtn = function () {
+        var modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+    function to_ajax() {
+        $.ajax({
+            type:"get",
+            url:"/checkPW",
+            data : "bId="+$('#hiddenID').val()+"&inputPW="+$('#inputPW').val(),
+            dataType:"text",
+            success: function(data) {
+                var result=data;
+                console.log(result);
+                if(result=="1") {
+                    location.href= document.getElementById('hiddenPW').value;
+                }
+                else {
+                    alert("비밀번호를 확인해주세요.")
+                }
+            },
+            error: function(xhr,status,error) {
+                alert(error);
+            }
+        });
+    }
+    // update modal 창
+    btnUpdate.onclick = function () {
+        document.getElementById('hiddenPW').value = "/update/"+$('#hiddenID').val();
+        var modal = document.getElementById('modal');
+        modal.style.display = 'block';
+    }
+    //delete
+    btnDelete.onclick = function () {
+        document.getElementById('hiddenPW').value = "/boardDelete/"+$('#hiddenID').val();
+        var modal = document.getElementById('modal');
+        modal.style.display = 'block';
+    }
+
+    btnCheck.onclick = checkBtn;
+    btnClose.onclick = closeRtn;
+    </script>
+    </th:block>
+</th:block>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>update 화면</title>
+    <link href="/update.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<th:block th:replace="~{/template :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <section id="contact" class="content-section text-center">
+            <div class="contact-section">
+                <div class="container">
+                    <h2>write</h2>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="exampleInputName2">작성자</label>
+                                    <input type ="text" id="exampleInputName2" disabled th:value="${idid.getBWriter()}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputName2">제목</label>
+                                    <input type="text" class="form-control" th:value="${idid.getBTitle()}">
+                                </div>
+                                <div class="form-group ">
+                                    <label >내용</label>
+                                    <textarea  class="form-control" th:text="${idid.getBContent()}"></textarea>
+                                </div><br/>
+                                <button type="submit" id="button">수정완료</button>
+                            </form>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </th:block>
+</th:block>
+
+</html>

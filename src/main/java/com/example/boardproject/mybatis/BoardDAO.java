@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface BoardDAO {
 
+
     @Select("select bId,bContent,bDate,bPw,bTitle,bWriter from board where bId=#{bId}")
     BoardDTO getContent(int bId);
 

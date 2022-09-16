@@ -38,4 +38,5 @@ public class Comment {
     @JoinColumn(name="bId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Board board;
+
 }

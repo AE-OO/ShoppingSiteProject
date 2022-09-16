@@ -36,7 +36,6 @@ public class Board {
     @ManyToOne
     @JoinColumn(name="pId")
     private Product pId;
-
 }
 
 

@@ -19,4 +19,5 @@ public class BoardDTO {
         private String bImage;
         private String bPw;
         private Product product;
+
 }

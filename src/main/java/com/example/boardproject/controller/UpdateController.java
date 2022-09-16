@@ -47,6 +47,7 @@ public class UpdateController {
     public String boardDelete(@PathVariable("id")int bId) {
             boardDAO.delete(bId);
             return "redirect:/";
+
     }
 
 }

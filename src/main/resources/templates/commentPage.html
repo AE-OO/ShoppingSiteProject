@@ -43,17 +43,17 @@
 <div>
   <!-- 실제 DB 값 가져와서 뿌리기 - 완 -->
   <!-- 리스트 출력하는 것도 ajax로 변경하기 -->
-  <div th:each="comments : ${comments}">
-    <div>[[${comments.cContent}]]</div>
-    <div>
-      <div>[[${comments.cWriter}]]</div>
-      <div>[[${comments.cDate}]]</div>
-      <div>[[${comments.cId}]]</div>
-      <input type="hidden" th:value="${comments.getCId}" id="comment--cId">
-      <button id="Btn--updateComment">수정</button>
-      <button class="Btn--deleteComment" th:id="${comments.getCId}">삭제</button>
-    </div>
-  </div>
+<!--  <div th:each="comments : ${comments}">-->
+<!--    <div>[[${comments.cContent}]]</div>-->
+<!--    <div>-->
+<!--      <div>[[${comments.cWriter}]]</div>-->
+<!--      <div>[[${comments.cDate}]]</div>-->
+<!--      <div>[[${comments.cId}]]</div>-->
+<!--      <input type="hidden" th:value="${comments.getCId}" id="comment&#45;&#45;cId">-->
+<!--      <button class="Btn&#45;&#45;updateComment" th:id="${comments.getCId}">수정</button>-->
+<!--      <button class="Btn&#45;&#45;deleteComment" th:id="${comments.getCId}">삭제</button>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="commentList"></div>
 </div>
 </div>
@@ -64,22 +64,24 @@
 
     // document.getElementById("Btn--uploadComment").addEventListener('click',uploadComment);
     document.getElementById("Btn--updateComment").addEventListener('click',updateComment);
-    // listComment();
+
+    listComment();
+
     $(".Btn--uploadComment").click(function(){
       console.log($("#input--Bid").val());
       $.ajax({
         type: "post",
-        url: "/upload",
+        url: "/comment/upload",
         // data:JSON.stringify(data),
         data: "cContent="+$("#input--Content").val()+"&cWriter="+$("#input--Writer").val()+"&cPw="+$("#input--Pw").val()+"&bId="+$("#input--Bid").val(),
         dataType: 'text',
         success:function(data, status){
           alert("댓글이 등록되었습니다.");
-          location.href = "/reply/"+$("#input--Bid").val();
+          location.href = "/comment/reply/"+$("#input--Bid").val();
         },
         error: function (xhr, status, error){
           alert("댓글 등록이 실패하였습니다.");
-          location.href = "/reply/"+$("#input--Bid").val();
+          location.href = "/comment/reply/"+$("#input--Bid").val();
         }
       });
     });
@@ -88,21 +90,54 @@
     console.log($(this).attr('id'));
     $.ajax({
       type: "post",
-      url: "/deleteComment",
+      url: "/comment/deleteComment",
       data: {cId:$(this).attr('id')},
       dataType: 'text',
       success:function(data, status){
         alert("댓글이 삭제되었습니다.");
-        location.href = "/reply/"+$("#input--Bid").val();
+        location.href = "/comment/reply/"+$("#input--Bid").val();
       },
       error: function(xhr, status, error){
         alert("댓글 삭제가 실패하였습니다.");
-        location.href = "/reply/"+$("#input--Bid").val();
+        location.href = "/comment/reply/"+$("#input--Bid").val();
       }
     });
   });
 
+  $(".Btn--updateComment").click(function(){
+    console.log($(this).attr('id'));
+    // $.ajax({
+    //            수정하기
+    // });
+  })
+
   });
+
+  function listComment(){
+    var commentUrl = "/comment/reply";
+    var commentNum = $("#input-Bid").val();
+
+    $.ajax({
+      url: commentUrl+commentNum,
+      type: "post",
+      dataType: "json",
+      success:function(result){
+        var comments = ""
+        if(result.length < 1){
+          comments = "등록된 댓글이 없습니다.";
+        }else{
+          $(result).each(function(){
+            comments +="<br/>"
+            + "작성자 : " + this.cWriter
+            + "댓글내용 : " + this.cContent
+            + "<button class=\"Btn--updateComment\" th:id=\"${comments.getCId}\">수정</button>"
+            + "<button class=\"Btn--deleteComment\" th:id=\"${comments.getCId}\">삭제</button>"
+          });
+        };
+        $(".commentList").append(comments);
+      }
+    })
+  }
 
   // function listComment(){
   //   $.ajax({
@@ -170,24 +205,7 @@
   //삭제버튼 누르면 삭제되게 하기
   //삭제버튼 누르면 삭제되는데 제일 위의 값의 버튼만 정상적으로 작동하고 그 외에는 작동을 안함
   //콘솔 찍어보니까 맨 위 삭제 버튼 뺴고는 cid 값을 못 가져옴 - 완
-  // function deleteComment(){
-  //   console.log($(this).attr('id'));
-  //   $.ajax({
-  //     type: "post",
-  //     url: "/deleteComment",
-  //     data: {cId:$(this).attr('id')},
-  //     dataType: 'json',
-  //     success:function(data,status){
-  //       alert(data);
-  //       alert("댓글이 삭제되었습니다.");
-  //       location.href = "/reply/"+$("#input--Bid").val();
-  //     },
-  //     error: function(xhr, status, error){
-  //       alert("댓글 삭제가 실패하였습니다.");
-  //       location.href = "/reply/"+$("#input--Bid").val();
-  //     }
-  //   })
-  // }
+
 
   //수정 버튼을 누른 댓글 위치에 댓글 작성하는 것처럼 바꿔야하는데 어떻게?
   function updateComment() {

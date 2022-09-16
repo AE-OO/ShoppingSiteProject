@@ -37,6 +37,6 @@ public class Comment {
     private String cPw;
 
     @ManyToOne
-    @JoinColumn(name="b_id")
+    @JoinColumn
     private Board board;
 }

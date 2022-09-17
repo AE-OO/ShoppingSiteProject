@@ -19,8 +19,8 @@ class CommentRepositoryTest {
 
     @Test
     void uploadComment() {
-        Board b1 = Board.builder().bId(2).build();
-        IntStream.rangeClosed(1,5).forEach(i->{
+        Board b1 = Board.builder().bId(1).build();
+        IntStream.rangeClosed(1,7).forEach(i->{
             Comment comment = Comment.builder().cContent("testComment..." + i).cWriter("tester " + i).cPw("test"+i).board(b1).build();
             System.out.println(commentRepository.save(comment));
         });

@@ -1,6 +1,6 @@
 <!--
   th:replace 작성하기
-  뷰 꾸미기
+  뷰 꾸미기 show랑 비슷하게 - 완
   댓글 등록, 수정, 삭제는 ajax로 구현하기 - 완
   몇번째 상품의 댓글인지 bid 받아오기 - 완
 -->
@@ -49,15 +49,12 @@
     <div>
       <div>[[${comments.cWriter}]]</div>
       <div>[[${comments.cDate}]]</div>
-      <div>[[${comments.cId}]]</div>
       <input type="hidden" th:value="${comments.cId}" id="comment--cId">
       <button class="Btn--updateComment" th:id="${comments.cId}" th:onclick="'commentUpdateForm(\'' + ${comments.cId} + '\')'">수정</button>
       <button class="Btn--deleteComment" th:id="${comments.cId}">삭제</button>
     </div>
     </div>
   </div>
-  <button class="Btn--tester">테스트 버튼</button>
-  <div class="commentList"></div>
 </div>
 </div>
 </body>
@@ -67,20 +64,6 @@
 
 
   $(document).ready(function() {
-
-    // document.getElementById("Btn--uploadComment").addEventListener('click',uploadComment);
-    // document.getElementById("Btn--updateComment").addEventListener('click',updateComment);
-
-    // listComment();
-
-    $(".Btn--tester").click(function(){
-
-      $(".commentList").append("<table>")
-      $(".commentList").append("<tr>")
-      $(".commentList").append("<td>안녕하세요</td>")
-      $(".commentList").append("</tr>")
-      $(".commentList").append("</table>")
-    });
 
     $(".Btn--uploadComment").click(function(){
       console.log($("#input--Bid").val());
@@ -118,11 +101,6 @@
       }
     });
   });
-
-  $(".Btn--UpdateDB").click(function(){
-    console.log($(this).attr('id'));
-  });
-
   });
 
   //매개변수로 cContent랑 cWriter도 같이 받으려니까 숫자형이랑 같이 전달해서 그런지 오류남

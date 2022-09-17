@@ -32,7 +32,7 @@ public class CommentController {
     public String showComments(@PathVariable("bid") int bid, Model model){
         model.addAttribute("comments", commentRepository.showCommentList(bid));
         model.addAttribute("bId", bid);
-        return "/commentPage";
+        return "/comment";
     }
 
     //restController 파일로 옮기기
@@ -57,5 +57,10 @@ public class CommentController {
     @PostMapping("/updateComment")
     public void updateComment(@RequestParam("cContent") String cContent, @RequestParam("cId") int cId){
         commentRepository.updateComment(cContent, cId);
+    }
+
+    @RequestMapping("/comment")
+    public String test(){
+        return "/comment";
     }
 }

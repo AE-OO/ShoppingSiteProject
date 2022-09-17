@@ -1,8 +1,8 @@
 <!--
   th:replace 작성하기
   뷰 꾸미기
-  댓글 등록, 수정, 삭제는 ajax로 구현하기
-  몇번째 상품의 댓글인지 bid 받아오기
+  댓글 등록, 수정, 삭제는 ajax로 구현하기 - 완
+  몇번째 상품의 댓글인지 bid 받아오기 - 완
 -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -35,37 +35,52 @@
     <label>비밀번호</label>
     <input type="password" name="cPw" id="input--Pw">
   </div>
-  <button type="button" id="Btn--uploadComment">댓글등록</button>
-<!--  전 페이지(후기 목록 페이지)에서 글 번호 받아와서 value에 대입 컨트롤러에서 addatribute해서 글 번호 넘김-->
+  <button type="button" class="Btn--uploadComment">댓글등록</button>
+<!--  전 페이지(후기 목록 페이지)에서 글 번호 받아와서 value에 대입 컨트롤러에서 addatribute해서 글 번호 넘김 - 완-->
   <input type="hidden" id="input--Bid" th:value="${bId}"/>
 </form>
 <br>
 <div>
   <!-- 실제 DB 값 가져와서 뿌리기 - 완 -->
-  <!-- 리스트 출력하는 것도 ajax로 변경하기 -->
-<!--  <div th:each="comments : ${comments}">-->
-<!--    <div>[[${comments.cContent}]]</div>-->
-<!--    <div>-->
-<!--      <div>[[${comments.cWriter}]]</div>-->
-<!--      <div>[[${comments.cDate}]]</div>-->
-<!--      <div>[[${comments.cId}]]</div>-->
-<!--      <input type="hidden" th:value="${comments.getCId}" id="comment&#45;&#45;cId">-->
-<!--      <button class="Btn&#45;&#45;updateComment" th:id="${comments.getCId}">수정</button>-->
-<!--      <button class="Btn&#45;&#45;deleteComment" th:id="${comments.getCId}">삭제</button>-->
-<!--    </div>-->
-<!--  </div>-->
+  <!-- 리스트 출력하는 것도 ajax로 변경하기 - 실 -->
+  <div th:each="comments : ${comments}">
+    <div th:id="${comments.cId}">
+    <div>[[${comments.cContent}]]</div>
+    <div>
+      <div>[[${comments.cWriter}]]</div>
+      <div>[[${comments.cDate}]]</div>
+      <div>[[${comments.cId}]]</div>
+      <input type="hidden" th:value="${comments.cId}" id="comment--cId">
+      <button class="Btn--updateComment" th:id="${comments.cId}" th:onclick="'commentUpdateForm(\'' + ${comments.cId} + '\')'">수정</button>
+      <button class="Btn--deleteComment" th:id="${comments.cId}">삭제</button>
+    </div>
+    </div>
+  </div>
+  <button class="Btn--tester">테스트 버튼</button>
   <div class="commentList"></div>
 </div>
 </div>
 </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+
   $(document).ready(function() {
 
     // document.getElementById("Btn--uploadComment").addEventListener('click',uploadComment);
-    document.getElementById("Btn--updateComment").addEventListener('click',updateComment);
+    // document.getElementById("Btn--updateComment").addEventListener('click',updateComment);
 
-    listComment();
+    // listComment();
+
+    $(".Btn--tester").click(function(){
+
+      $(".commentList").append("<table>")
+      $(".commentList").append("<tr>")
+      $(".commentList").append("<td>안녕하세요</td>")
+      $(".commentList").append("</tr>")
+      $(".commentList").append("</table>")
+    });
 
     $(".Btn--uploadComment").click(function(){
       console.log($("#input--Bid").val());
@@ -104,113 +119,86 @@
     });
   });
 
-  $(".Btn--updateComment").click(function(){
+  $(".Btn--UpdateDB").click(function(){
     console.log($(this).attr('id'));
-    // $.ajax({
-    //            수정하기
-    // });
-  })
+  });
 
   });
 
-  function listComment(){
-    var commentUrl = "/comment/reply";
-    var commentNum = $("#input-Bid").val();
-
-    $.ajax({
-      url: commentUrl+commentNum,
-      type: "post",
-      dataType: "json",
-      success:function(result){
-        var comments = ""
-        if(result.length < 1){
-          comments = "등록된 댓글이 없습니다.";
-        }else{
-          $(result).each(function(){
-            comments +="<br/>"
-            + "작성자 : " + this.cWriter
-            + "댓글내용 : " + this.cContent
-            + "<button class=\"Btn--updateComment\" th:id=\"${comments.getCId}\">수정</button>"
-            + "<button class=\"Btn--deleteComment\" th:id=\"${comments.getCId}\">삭제</button>"
-          });
-        };
-        $(".commentList").append(comments);
-      }
-    })
+  //매개변수로 cContent랑 cWriter도 같이 받으려니까 숫자형이랑 같이 전달해서 그런지 오류남
+  //어떻게 cContent랑 cWriter를 매개변수로 받아서 사용할 건지 찾기
+  //수정하기 버튼 클릭하면 comment_id값을 받아와야하는데 그걸 못함 - 완
+  function commentUpdateForm(comment_id){
+    console.log(comment_id)
+    var commentview = "";
+    commentview += "<div class='commentUpdateContent'>";
+    commentview += "<textarea rows='3' name='updateContent' id='update--Content'>";
+    commentview += "테스트중입니다.";
+    commentview += "</textarea>";
+    commentview += "</div>"
+    commentview += "<div class='commentUpdateWriter'>";
+    commentview += "<label>작성자</label>";
+    commentview += "<input value='testing' readOnly>";
+    commentview += "</div>";
+    commentview += '<button class="Btn--updateDB" onclick="updateComment(' + comment_id + ')">수정하기</button>';
+    $("#"+comment_id).replaceWith(commentview);
   }
 
-  // function listComment(){
-  //   $.ajax({
-  //     url:"/reply",
-  //     type: "post",
-  //     dataType: "json",
-  //     success: function(data){
-  //       // let str = JSON.stringify(data);
-  //       // alert(str);
-  //       alert("check");
-  //     }
-  //   });
-  // }
-
-  //이런식으로 쓰는 방법 질문
-  // function listComment(){
-  //   $.ajax({
-  //     url: "/reply/"+$("#input--Bid").val(),
-  //     type: "post",
-  //     success: function(){
-  //       var a='';
-  //       $.each(function(){
-  //         a += '<div>안녕</div>'
-  //       })
-  //
-  //       $(".ajaxdiv").html(a);
-  //     }
-  //   })
-  // }
-
-  function uploadComment(){
-    //console.log("누름");
-    // let cContent = $("#input--Content").val();
-    // let data = {
-    //   cContent:$("#input--Content").val(),
-    //   cWriter:$("#input--Writer").val(),
-    //   cPw:$("#input--Pw").val()
-    // }
-    // console.log(data.cContent);
-    console.log($("#input--Bid").val());
+  //수정 버튼을 누른 댓글 위치에 댓글 작성하는 것처럼 바꿔야하는데 어떻게? - 완
+  function updateComment(clickId) {
+    console.log(clickId);
     $.ajax({
       type: "post",
-      url: "/upload",
-      // data:JSON.stringify(data),
-      data: "cContent="+$("#input--Content").val()+"&cWriter="+$("#input--Writer").val()+"&cPw="+$("#input--Pw").val()+"&bId="+$("#input--Bid").val(),
-      // data:{
-      //     bId:$("#input--Bid").val(),
-      //     cContent:$("#input--Content").val(),
-      //     cWriter:$("#input--Writer").val(),
-      //     cPw:$("#input--Pw").val()
-      //   },
-      dataType: 'text',
-      success:function(data, status){
-        alert("댓글이 등록되었습니다.");
-        location.href = "/reply/"+$("#input--Bid").val();
+      url: "/comment/updateComment",
+      data: "cContent=" + $("#update--Content").val() + "&cId=" + clickId,
+      dataType: "text",
+      success: function(data, status){
+        alert("댓글이 수정되었습니다.");
+        location.href = "/comment/reply/"+$("#input--Bid").val();
       },
       error: function (xhr, status, error){
-        alert("댓글 등록이 실패하였습니다.");
-        location.href = "/reply/"+$("#input--Bid").val();
+        alert("댓글 수정이 실패하였습니다.");
+        location.href = "/comment/reply/"+$("#input--Bid").val();
       }
     });
   }
 
 
-  //삭제버튼 누르면 삭제되게 하기
-  //삭제버튼 누르면 삭제되는데 제일 위의 값의 버튼만 정상적으로 작동하고 그 외에는 작동을 안함
+  function listComment(){
+    // var commentUrl = "/comment/reply";
+    // var commentNum = $("#input-Bid").val();
+    //
+    // $.ajax({
+    //   url: commentUrl+commentNum,
+    //   type: "post",
+    //   dataType: "json",
+    //   success:function(result){
+    //     alert(result.cWriter);
+    //     var comments = ""
+    //     if(result.length < 1){
+    //       comments = "등록된 댓글이 없습니다.";
+    //     }else{
+    //       $(result).each(function(){
+    //         comments +="<br/>"
+    //         + "작성자 : " + this.cWriter
+    //         + "댓글내용 : " + this.cContent
+    //         + "<button class=\"Btn--updateComment\" th:id=\"${comments.getCId}\">수정</button>"
+    //         + "<button class=\"Btn--deleteComment\" th:id=\"${comments.getCId}\">삭제</button>"
+    //       });
+    //
+    //
+    //     };
+    //     $(".commentList").append(comments);
+    //   }
+    // })
+    // $(".commentList").append("helloWorld");
+  }
+
+
+  //삭제버튼 누르면 삭제되게 하기 - 완
+  //삭제버튼 누르면 삭제되는데 제일 위의 값의 버튼만 정상적으로 작동하고 그 외에는 작동을 안함 - 완
   //콘솔 찍어보니까 맨 위 삭제 버튼 뺴고는 cid 값을 못 가져옴 - 완
 
-
-  //수정 버튼을 누른 댓글 위치에 댓글 작성하는 것처럼 바꿔야하는데 어떻게?
-  function updateComment() {
-    console.log($("#comment--cId").val())
-  }
 
 </script>
 </html>

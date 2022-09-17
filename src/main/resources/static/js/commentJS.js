@@ -60,10 +60,11 @@ function commentUpdateForm(comment_id, comment_writer, comment_content, comment_
     commentview += '</div></i>';
     commentview += '</div>';
     commentview += '<div class="card-body">'
-    commentview += '<textarea class="form-control" placeholder="Leave a comment here" name="updateContent" id="update--Content" style="border: none">';
+    commentview += '<textarea class="form-control" placeholder="수정할 댓글을 작성해주세요" name="updateContent" id="update--Content" onkeyup="updateTextCounter(this, 100)" style="border: none; resize: none;">';
     commentview += comment_content;
     commentview += '</textarea>';
     commentview += '<div class="d-grid gap-2 d-md-flex justify-content-md-end">';
+    commentview += '<span id="countUpdateText" style="text-align: left;">0 / 100자</span>'
     commentview += '<button class="btn btn-outline-secondary btn-sm Btn--updateCancel" onclick="updateCancel()" style="float: right">수정취소</button>';
     commentview += '<button class="btn btn-outline-secondary btn-sm Btn--updateDB" onclick="updateComment(' + comment_id + ')" style="float: right">수정완료</button>';
     commentview += '</div>';
@@ -105,6 +106,26 @@ function updateComment(clickId) {
             }
         });
     }
+}
+
+function textCounter(text, limit){
+    var str = text.value.length;
+   if(str > limit){
+        document.getElementById("countText").innerHTML = limit + "자 이상 입력했습니다.";
+        text.value = text.value.substring(0,limit);
+        text.focus();
+    }
+    document.getElementById("countText").innerHTML = text.value.length + " / " + limit + "자";
+}
+
+function updateTextCounter(text, limit){
+    var str = text.value.length;
+    if(str > limit){
+        document.getElementById("countUpdateText").innerHTML = limit + "자 이상 입력했습니다.";
+        text.value = text.value.substring(0,limit);
+        text.focus();
+    }
+    document.getElementById("countUpdateText").innerHTML = text.value.length + " / " + limit + "자";
 }
 
 

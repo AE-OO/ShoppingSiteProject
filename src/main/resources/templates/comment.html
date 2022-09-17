@@ -41,12 +41,13 @@
             <div class="container">
                 <div class="form-floating">
                     <textarea class="form-control" placeholder="Leave a comment here" id="input--Content"
-                              name="cContent" style="height: 100px"></textarea>
+                              name="cContent" onkeyup="textCounter(this, 100)" style="height: 100px; resize: none;"></textarea>
                     <label for="input--Content">Comments</label>
                 </div>
+                <span id="countText" style="text-align: right;">0 / 100자</span>
                 <span class="d-flex">
                     <button class="btn btn-outline-dark flex-shrink-0" id="Btn--uploadComment"
-                            style="margin: 20px 10px 0px 0px;" type="button">
+                            style="margin: 20px 10px 0px 0px; float: left;" type="button">
                         댓글 등록
                     </button>
                 </span>

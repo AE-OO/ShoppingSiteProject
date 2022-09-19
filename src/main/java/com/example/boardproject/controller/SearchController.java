@@ -1,8 +1,8 @@
 package com.example.boardproject.controller;
 
-import com.example.shopping.dto.PageRequestDTO;
-import com.example.shopping.repository.SearchRepository;
-import com.example.shopping.service.BoardService;
+import com.example.boardproject.dto.PageRequestDTO;
+import com.example.boardproject.repository.SearchRepository;
+import com.example.boardproject.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

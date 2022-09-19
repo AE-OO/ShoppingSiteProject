@@ -1,7 +1,7 @@
 package com.example.boardproject.repository;
 
-import com.example.shopping.entity.Board;
-import com.example.shopping.entity.Product;
+import com.example.boardproject.entity.Board;
+import com.example.boardproject.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

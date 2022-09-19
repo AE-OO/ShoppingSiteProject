@@ -8,7 +8,7 @@ import com.example.boardproject.entity.Board;
 
 public interface BoardService {
 
-    default BoardDTO entityToDto(Board board){
+    default BoardDTO entityToDto(Board board) {
         BoardDTO boardDTO = BoardDTO.builder()
                 .bId(board.getBId())
                 .bPw(board.getBPw())
@@ -23,7 +23,7 @@ public interface BoardService {
         return boardDTO;
     }
 
-    default Board DtoToEntity(BoardDTO boardDTO){
+    default Board DtoToEntity(BoardDTO boardDTO) {
         Board entity = Board.builder()
                 .bId(boardDTO.getBId())
                 .bTitle(boardDTO.getBTitle())
@@ -37,6 +37,7 @@ public interface BoardService {
 
         return entity;
     }
-    PageResultDTO<BoardDTO, Board> getList(int pid, PageRequestDTO pageRequestDTO);
+
+    PageResultDTO<BoardDTO, Board> getList(PageRequestDTO pageRequestDTO);
 
 }

@@ -54,6 +54,12 @@ public class PageResultDTO<DTO, Entity> {
         prev = start > 1 ? true : false;
         next = totalPage > tempEnd ? true: false;
 
+        System.out.println("prev = " + prev);
+        System.out.println("next = " + next);
+        System.out.println("tempEnd = " + tempEnd);
+
+
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+        System.out.println("pageList = " + pageList);
     }
 }

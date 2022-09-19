@@ -42,3 +42,8 @@ main {
 main {
     top: 40%;
 }
+
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}

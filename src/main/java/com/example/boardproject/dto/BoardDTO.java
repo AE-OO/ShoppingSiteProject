@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class BoardDTO {
+
     private int bId;
     private String bTitle;
     private String bWriter;
@@ -23,4 +24,5 @@ public class BoardDTO {
     private List<UploadFile> pImageFiles;
     private String bPw;
     private Product pId;
+
 }

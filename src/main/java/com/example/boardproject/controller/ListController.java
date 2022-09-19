@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ListController {
 
-    private final BoardService boardService;
 
-    @RequestMapping("/test")
-    public String test() {
-        return "/layout/defaultForm";
-    }
 
 }

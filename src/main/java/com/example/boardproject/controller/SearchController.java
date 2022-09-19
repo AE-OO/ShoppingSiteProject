@@ -1,9 +1,9 @@
 package com.example.boardproject.controller;
 
-import com.example.boardproject.dto.PageRequestDTO;
 import com.example.boardproject.repository.SearchRepository;
 import com.example.boardproject.service.BoardService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequiredArgsConstructor
 public class SearchController {
+
     private final SearchRepository searchRepository;
     private final BoardService boardService;
 
@@ -27,6 +28,5 @@ public class SearchController {
         model.addAttribute("pId", pId);
         return "list";
     }
-
 
 }

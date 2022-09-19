@@ -1,0 +1,37 @@
+<!--created : oh
+last update : 09/16-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form method="post" th:action="@{/board/write/{pId}(pId=${pId})}" enctype="multipart/form-data">
+        <div>
+            <label for="bTitle">타이틀</label>
+            <input id="bTitle" name="bTitle" type="text">
+        </div>
+        <div>
+            <label for="bWriter">작성자</label>
+            <input id="bWriter" name="bWriter" type="text">
+        </div>
+        <div>
+            <label for="bContent">내용</label>
+            <input id="bContent" name="bContent" type="text">
+        </div>
+        <div>
+            <label for="bImage">이미지</label>
+            <input type="file" multiple="multiple" id="bImage" name="pImageFiles">
+        </div>
+        <div>
+            <label for="bPw">패스워드</label>
+            <input id="bPw" name="bPw" type="text">
+        </div>
+
+        <button type="submit">작성</button>
+    </form>
+</div>
+</body>
+</html>

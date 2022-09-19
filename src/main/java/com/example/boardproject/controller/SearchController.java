@@ -1,8 +1,8 @@
 package com.example.boardproject.controller;
 
-import com.example.boardproject.dto.PageRequestDTO;
-import com.example.boardproject.repository.SearchRepository;
-import com.example.boardproject.service.BoardService;
+import com.example.shopping.dto.PageRequestDTO;
+import com.example.shopping.repository.SearchRepository;
+import com.example.shopping.service.BoardService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,23 +31,6 @@ public class SearchController {
         return "main";
     }
 
-//    @GetMapping("/product/{pId}")
-//    public String productList(@PathVariable("pId") int pId, PageRequestDTO pageRequestDTO, Model model) {
-//        model.addAttribute("lists", boardService.getList(pId,pageRequestDTO));
-//        model.addAttribute("pId", pId);
-//        System.out.println("pId = " + pId);
-//
-//        return "list";
-//    }
-//
-//    @GetMapping("/product/{pId}/list")
-//    public String list(@PathVariable("pId") int pId , PageRequestDTO pageRequestDTO, Model model){
-//        model.addAttribute("lists", boardService.getList(pId,pageRequestDTO));
-//
-//        return "list";
-//    }
-
-
     @GetMapping("/product/{pId}")
     public String productList(@PathVariable("pId") int pId, Model model) {
         log.info("----------- /product/{pId}------------");
@@ -62,7 +45,7 @@ public class SearchController {
     public String list(@PathVariable("pId") int pId, PageRequestDTO pageRequestDTO, Model model) {
         log.info("list :" + pageRequestDTO);
 
-        model.addAttribute("lists", boardService.getList(pageRequestDTO));
+        model.addAttribute("lists", boardService.getList(pId,pageRequestDTO));
         model.addAttribute("pId", pId);
 
         return "list";

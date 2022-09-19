@@ -34,13 +34,23 @@ public class PageResultDTO<DTO, Entity> {
     private List<DTO> dtoList;
     private List<Integer> pageList;
 
+    private Long totalElement;
+
+    private int number;
+
+    private int size;
 
     public PageResultDTO(Page<Entity> result, Function<Entity, DTO> fn) {
         dtoList = result.stream().map(fn).collect(Collectors.toList());
 
         totalPage = result.getTotalPages();
 
+        number = result.getNumber();
+        size = result.getSize();
+
+
         makePageList(result.getPageable());
+
     }
 
     private void makePageList(Pageable pageable) {
@@ -52,8 +62,9 @@ public class PageResultDTO<DTO, Entity> {
         start = tempEnd - 9;
         end = totalPage > tempEnd ? tempEnd : totalPage;
         prev = start > 1 ? true : false;
-        next = totalPage > tempEnd ? true : false;
+        next = totalPage > tempEnd ? true: false;
 
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+
     }
 }

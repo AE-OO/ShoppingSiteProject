@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>CHOONGANG ONLINE FASION STORE - Detailed Review</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/showFavicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/showStyles.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">CHOONGANG ONLINE FASION STORE - Detailed Review</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/list">List</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Member</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">회원 가입</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Review section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/image/2208101343_0000015.jpg" alt="..." /></div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder" th:text="${board.bTitle}"></h1>
+                <div class="small mb-1"th:text="|작성자 : ${board.bWriter}|"></div>
+                <div class="small mb-1" th:text="|작성 일자 : ${#temporals.format(board.bDate, 'yyyy-MM-dd HH:mm:ss')}|"></div>
+                <p class="lead" th:text="${board.bContent}"></p>
+            </div>
+            <div>
+                <span class="d-flex" style="float:right">
+                    <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;" type="button" action="updateReview">
+                        리뷰 수정
+                    </button>
+                    <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;" type="button" action="deleteReview">
+                        리뷰 삭제
+                    </button>
+                    <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 0px 0px 0px;" type="button" action="list">
+                        <i class="bi-cart-fill me-1"></i>
+                        리뷰 목록으로
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Comment section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">댓글 칸</h2>
+    </div>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">FASHION WEB MAGAZINE &copy; LIFE STYLE SELECT SHOP WWW.CHOONGANGSTORE.COM</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/showScripts.js"></script>
+</body>
+</html>

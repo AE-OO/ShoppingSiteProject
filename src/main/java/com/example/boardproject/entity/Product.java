@@ -19,7 +19,4 @@ public class Product {
     @Column(length = 10)
     private String pName;
 
-    @Column(length = 254)
-    private String pImage;
-
 }

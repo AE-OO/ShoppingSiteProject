@@ -3,6 +3,8 @@ package com.example.boardproject.entity;
 import com.example.boardproject.domain.UploadFile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -35,7 +37,7 @@ public class Board {
 
     @ElementCollection
     @CollectionTable(name = "files",
-            joinColumns = @JoinColumn(name = "fId"))
+            joinColumns = @JoinColumn(name = "fId", referencedColumnName = "bId"))
     private List<UploadFile> pImageFiles;
 
     @Column(length = 20, name = "bPw", nullable = false)

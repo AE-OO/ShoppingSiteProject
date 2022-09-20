@@ -48,12 +48,14 @@
             </div>
             <div>
                 <span class="d-flex" style="float:right">
-                    <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;" type="button" action="updateReview">
-                        리뷰 수정
-                    </button>
-                    <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;" type="button" action="deleteReview">
-                        리뷰 삭제
-                    </button>
+                    <form th:action="@{/board/update/{id}(id=${board.bId})}">
+            <input type="hidden" id="hiddenID" th:value="${board.bId}"/>
+            <input type='submit' value='리뷰 수정' id='btnUpdate' class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;">
+        </form>
+        <form th:action="@{/board/boardDelete/{id}(id=${board.bId})}">
+            <input type="hidden" id="hiddenID2" th:value="${board.bId}"/>
+            <input type='submit' value='리뷰 삭제' id='btnDelete' class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 10px 0px 0px;">
+        </form>
                     <button class="btn btn-outline-dark flex-shrink-0" style="margin: 20px 0px 0px 0px;" type="button" action="list">
                         <i class="bi-cart-fill me-1"></i>
                         리뷰 목록으로

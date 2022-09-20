@@ -37,9 +37,6 @@ public class Board {
     @CollectionTable(name = "files", joinColumns = @JoinColumn(name = "fId", referencedColumnName = "bId"))
     private List<UploadFile> pImageFiles;
 
-    @Column(length = 20, name = "bPw", nullable = false)
-    private String bPw;
-
     @CreationTimestamp
     @Column(updatable = false, name = "bDate")
     private LocalDateTime bDate;
@@ -48,12 +45,11 @@ public class Board {
     @JoinColumn(name = "pId")
     private Product pId;
 
-    public Board(String bTitle, String bWriter, String bContent, List<UploadFile> pImageFiles, String bPw, Product pid) {
+    public Board(String bTitle, String bWriter, String bContent, List<UploadFile> pImageFiles, Product pid) {
         this.bTitle = bTitle;
         this.bWriter = bWriter;
         this.bContent = bContent;
         this.pImageFiles = pImageFiles;
-        this.bPw = bPw;
         this.pId = pid;
     }
 }

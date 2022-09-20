@@ -1,6 +1,7 @@
 package com.example.boardproject.controller;
 
 import com.example.boardproject.domain.UploadFile;
+import com.example.boardproject.dto.MemberDTO;
 import com.example.boardproject.mybatis.BoardDAO;
 import com.example.boardproject.repository.UpdateRepository;
 import com.example.boardproject.service.FileService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -28,10 +31,20 @@ public class UpdateController {
     UpdateRepository updateRepository;
 
     @RequestMapping("/update/{id}") //수정 화면
-    public String boardUpdateForm(@PathVariable("id") int bId, Model model) {
-        model.addAttribute("idid", boardDAO.updateSelect(bId));
-        model.addAttribute("imageName",boardDAO.selectImage(bId));
-        return "updateBoard";
+    public String boardUpdateForm(@PathVariable("id") int bId, HttpServletRequest request, Model model) {
+        System.out.println("++++++++++++++++++++++++++"+boardDAO.checkWriter(bId));
+
+        HttpSession session = request.getSession();
+//        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginMember");
+
+        if(session.getAttribute("loginID").equals(boardDAO.checkWriter(bId))){
+            model.addAttribute("idid", boardDAO.updateSelect(bId));
+            model.addAttribute("imageName",boardDAO.selectImage(bId));
+            return "updateBoard";
+        }
+
+        model.addAttribute("bId", bId);
+        return "notSameAlert";
     }
 
     @PostMapping("/boardUpdate/{id}") //수정 DB 반영
@@ -49,8 +62,14 @@ public class UpdateController {
     }
 
     @RequestMapping("/boardDelete/{id}") // 삭제 DB 반영
-    public String boardDelete(@PathVariable("id") int bId) {
-        updateRepository.deleteById(bId);
-        return "redirect:/";
+    public String boardDelete(@PathVariable("id") int bId, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        System.out.println(bId);
+        if(session.getAttribute("loginID").equals(boardDAO.checkWriter(bId))){
+            updateRepository.deleteById(bId);
+            return "redirect:/";
+        }
+        model.addAttribute("bId", bId);
+        return "notSameAlert";
     }
 }

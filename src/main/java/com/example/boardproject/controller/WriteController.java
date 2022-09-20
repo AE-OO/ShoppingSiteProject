@@ -52,7 +52,6 @@ public class WriteController {
                 boardWriteDTO.getBWriter(),
                 boardWriteDTO.getBContent(),
                 storeImageFiles,
-                boardWriteDTO.getBPw(),
                 product);
 
         writeRepository.save(board);

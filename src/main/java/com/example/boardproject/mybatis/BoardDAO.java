@@ -20,8 +20,8 @@ public interface BoardDAO {
     @Select("select bId,bTitle,bContent,bWriter,bDate from board where bId=#{bId}")
     BoardDTO updateSelect(int bId);
 
-    @Select("select bPw from board where bId=#{bId}")
-    String checkPW(int bId);
+    @Select("select bWriter from board where bId=#{bId}")
+    String checkWriter(int bId);
 
     @Delete("delete from board where bId=#{bId}")
     int delete(int bId);

@@ -18,8 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into Comment(cContent,cDate,cWriter,cPw,bId) values(?1,now(),?2,?3,?4)", nativeQuery = true)
-    int uploadComment(@Param("cContent") String cContent, @Param("cWriter") String cWriter, @Param("cPw") String cPw, @Param("bId") int bId);
+    @Query(value = "insert into Comment(cContent,cDate,cWriter,bId) values(?1,now(),?2,?3)", nativeQuery = true)
+    int uploadComment(@Param("cContent") String cContent, @Param("cWriter") String cWriter, @Param("bId") int bId);
 
     @Modifying
     @Transactional

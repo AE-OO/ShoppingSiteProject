@@ -31,9 +31,6 @@ public class Comment {
     @Column(updatable = false)
     private LocalDateTime cDate;
 
-    @Column(length = 20, nullable = false)
-    private String cPw;
-
     @ManyToOne
     @JoinColumn(name = "bId")
     private Board board;

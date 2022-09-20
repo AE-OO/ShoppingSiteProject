@@ -13,7 +13,6 @@ public interface BoardService {
 
         BoardDTO boardDTO = BoardDTO.builder()
                 .bId(board.getBId())
-                .bPw(board.getBPw())
                 .bDate(board.getBDate())
                 .bContent(board.getBContent())
                 .bTitle(board.getBTitle())
@@ -37,7 +36,6 @@ public interface BoardService {
                 .bContent(boardDTO.getBContent())
                 .bDate(boardDTO.getBDate())
                 .pImageFiles(boardDTO.getPImageFiles())
-                .bPw(boardDTO.getBPw())
                 .pId(boardDTO.getPId())
                 .build();
 

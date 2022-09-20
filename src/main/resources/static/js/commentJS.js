@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
     $("#Btn--uploadComment").click(function () {
-        if ($("#input--Content").val() == "" || $("#input--Writer").val() == "" || $("#input--Pw").val() == "") {
-            alert("모든 항목을 작성해주세요.");
+        if ($("#input--Content").val() == "") {
+            alert("내용을 작성해주세요.");
             $("#input--Writer").focus();
         }else {
             $.ajax({
                 type: "post",
                 url: "/upload",
-                data: "cContent=" + $("#input--Content").val() + "&cWriter=" + $("#input--Writer").val() + "&cPw=" + $("#input--Pw").val() + "&bId=" + $("#input--Bid").val(),
+                data: "cContent=" + $("#input--Content").val() + "&bId=" + $("#input--Bid").val(),
                 dataType: 'text',
                 success: function (data, status) {
                     alert("댓글이 등록되었습니다.");
@@ -122,7 +122,3 @@ function updateTextCounter(text, limit){
     }
     document.getElementById("countUpdateText").innerHTML = text.value.length + " / " + limit + "자";
 }
-
-//삭제버튼 누르면 삭제되게 하기 - 완
-//삭제버튼 누르면 삭제되는데 제일 위의 값의 버튼만 정상적으로 작동하고 그 외에는 작동을 안함 - 완
-//콘솔 찍어보니까 맨 위 삭제 버튼 뺴고는 cid 값을 못 가져옴 - 완

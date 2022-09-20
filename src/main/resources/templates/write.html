@@ -22,7 +22,7 @@ last update : 09/20-->
                         </div>
                         <div>
                             <label for="bWriter">작성자</label>
-                            <input class="form-control" id="bWriter" name="bWriter" type="text">
+                            <input class="form-control" id="bWriter" name="bWriter" type="text" th:value="${session.loginMember.loginId}" readonly>
                         </div>
                         <div>
                             <label for="bContent">내용</label>
@@ -31,10 +31,6 @@ last update : 09/20-->
                         <div>
                             <label for="bImage">이미지</label>
                             <input class="form-control" type="file" multiple="multiple" id="bImage" name="pImageFiles">
-                        </div>
-                        <div>
-                            <label for="bPw">패스워드</label>
-                            <input class="form-control" id="bPw" name="bPw" type="text">
                         </div>
                         <br/>
                         <button class="btn btn-primary" type="submit">작성</button>

@@ -25,7 +25,7 @@ public class ShowServiceImpl implements ShowService{
         BoardDTO boardDTO = boardService.entityToDto(showRepository.findByBId(bId).get());
 
         boardDTO = getReviewImage(boardDTO);
-        boardDTO = getAsteriskWriter (boardDTO);
+        //boardDTO = getAsteriskWriter (boardDTO);
 
         return boardDTO;
     }

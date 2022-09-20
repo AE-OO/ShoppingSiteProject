@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>update 화면</title>
+</head>
+<th:block th:replace="~{/layout/template :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+
+
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <form th:action="@{/board/boardUpdate/{id}(id=${idid.getBId()})}" method="post"
+                      enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" class="form-control" id="title" th:value="${idid.getBTitle()}">
+                    </div>
+                    <div class="form-group">
+                        <label for="author">작성자</label>
+                        <input type="text" class="form-control" id="author" disabled th:value="${idid.getBWriter()}">
+                    </div>
+                    <div>
+                        <label>제목</label>
+                        <textarea class="form-control" name="title" th:text="${idid.getBTitle()}"></textarea>
+                    </div>
+                    <div>
+                        <label>내용</label>
+                        <textarea class="form-control" name="content" th:text="${idid.getBContent()}"></textarea>
+                    </div>
+                    <div>
+                        <label>이미지</label>
+                        <input class="form-control" type="file" multiple="multiple" name="pImageFiles">
+                        <div th:each="aa : ${imageName}">
+                            <img th:src="@{/images/{uploadFileName}(uploadFileName=${aa})}"/>
+                        </div>
+                        <br/>
+                        <button type="submit" class="btn btn-primary" id="btn-save">등록</button>
+                    </div>
+                </form>
+
+                <a href="/" role="button" class="btn btn-secondary">취소</a>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+</html>

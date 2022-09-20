@@ -1,0 +1,49 @@
+<!--created : oh
+last update : 09/20-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="~{/layout/template :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <main>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <form method="post" th:action="@{/board/write/{pId}(pId=${pId})}" enctype="multipart/form-data">
+                        <div>
+                            <label for="bTitle">타이틀</label>
+                            <input class="form-control" id="bTitle" name="bTitle" type="text">
+                        </div>
+                        <div>
+                            <label for="bWriter">작성자</label>
+                            <input class="form-control" id="bWriter" name="bWriter" type="text">
+                        </div>
+                        <div>
+                            <label for="bContent">내용</label>
+                            <input class="form-control" id="bContent" name="bContent" type="text">
+                        </div>
+                        <div>
+                            <label for="bImage">이미지</label>
+                            <input class="form-control" type="file" multiple="multiple" id="bImage" name="pImageFiles">
+                        </div>
+                        <div>
+                            <label for="bPw">패스워드</label>
+                            <input class="form-control" id="bPw" name="bPw" type="text">
+                        </div>
+                        <br/>
+                        <button class="btn btn-primary" type="submit">작성</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </th:block>
+</th:block>
+<div th:replace="~{fragment/footer :: footer}"/>
+</body>
+</html>

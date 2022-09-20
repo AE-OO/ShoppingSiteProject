@@ -1,14 +1,10 @@
 package com.example.boardproject.entity;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "board")
+@EntityListeners(value = {AuditingEntityListener.class})
 public class Comment {
 
     @Id
@@ -31,12 +28,13 @@ public class Comment {
     private String cWriter;
 
     @CreationTimestamp
-    private Timestamp cDate;
+    @Column(updatable = false)
+    private LocalDateTime cDate;
 
     @Column(length = 20, nullable = false)
     private String cPw;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "bId")
     private Board board;
 }

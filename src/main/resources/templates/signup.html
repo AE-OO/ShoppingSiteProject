@@ -31,12 +31,12 @@
 
 
         <div th:object="${memberDTO}" class="d-flex justify-content-center">
-            <form th:action="@{/member/new}" method="post" name="">
+            <form th:action="@{/member/new}" method="post" >
 
                 <div th:if="${#fields.hasGlobalErrors()}">
                     <p class="field-error" th:text="오류입니다">글로벌 오류 메시지</p>
                 </div>
-                <div class="has-validation">
+                <div>
                     <div>
                         <label for="loginId" th:text="아이디"/>
                         <input name="loginId" th:field="*{loginId}" id="loginId" type="text">
@@ -53,7 +53,7 @@
                     </div>
 
                     <div th:each="type : ${memberType}">
-                        <label for="memberType" th:text="${type.getIdentity()}"></label>
+                        <label for="memberType" th:text="${type.identity}"></label>
                         <input id="memberType" th:field="*{memberType}" name="memberType" th:value="${type.name()}"
                                type="radio">
                         <div class="field-error" th:errors="*{memberType}">

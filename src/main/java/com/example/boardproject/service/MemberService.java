@@ -10,5 +10,6 @@ public interface MemberService {
 
     Member findById(int id);
 
+//    Member findByLoginId(String loginId);
     Optional<Member> findByLoginId(String loginId);
 }

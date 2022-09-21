@@ -34,9 +34,10 @@ public class MemberController {
     @PostMapping("/new")
     public String signup(@Validated @ModelAttribute(name = "memberDTO") MemberDTO memberDTO, BindingResult bindingResult) {
 
+
         //이곳에서는 FieldError를 생성했으며 memberDTO의 loginId필드와 매핑된다.
         if (validationLoginId(memberDTO.getLoginId()).equals(memberDTO.getLoginId())) {
-            bindingResult.addError(new FieldError("memberDTO","loginId","이미 존재하는 아이디입니다."));
+            bindingResult.addError(new FieldError("memberDTO", "loginId", "이미 존재하는 아이디입니다."));
         }
 
         //말그대로 Errors를 갖는다면 에러를 발생시키고 로그를 찍은 뒤 리턴한다.
@@ -59,8 +60,20 @@ public class MemberController {
     private String validationLoginId(String loginId) {
         Optional<Member> result = memberService.findByLoginId(loginId);
         log.info("result={}", result);
+
         return result.get().getLoginId();
+
     }
+
+//    private String validationLoginId(String loginId) {
+//        Member result = memberService.findByLoginId(loginId);
+//        log.info("result={}", result);
+//        if (result == null) {
+//            return "";
+//        } else {
+//            return result.getLoginId();
+//        }
+//    }
 
     /**
      * @ModelAttribute("memberType") 이와 같이 쓰면 view 페이지에 memberType라는 이름으로 프러퍼티가 넘어간다.
